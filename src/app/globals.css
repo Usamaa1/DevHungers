@@ -1,22 +1,56 @@
 @import "tailwindcss";
 
-:root {
-  /* Clean, professional white background */
-  --background: #ffffff;
-  --foreground: #0f172a; /* Slate 900 for better readability */
+@theme {
+  --font-sans: "DM Sans", "Helvetica Neue", sans-serif;
+  --font-mono: "DM Mono", monospace;
+  --font-display: "Syne", sans-serif;
+
+  --color-stone-50:  #FAFAF9;
+  --color-stone-100: #F5F3EF;
+  --color-stone-200: #E7E5E4;
+  --color-stone-300: #D4CFC9;
+  --color-stone-400: #A8A29E;
+  --color-stone-500: #78716C;
+  --color-stone-600: #57534E;
+  --color-stone-700: #44403C;
+  --color-stone-800: #292524;
+  --color-stone-900: #1C1917;
+
+  @keyframes orbFloat {
+    0%   { transform: translate(0,0) scale(1); }
+    100% { transform: translate(30px,25px) scale(1.08); }
+  }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.4; }
+  }
+  @keyframes floatCard {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+  }
+
+  --animate-orb-float: orbFloat 14s ease-in-out infinite alternate;
+  --animate-pulse-dot: pulseDot 2s ease-in-out infinite;
+  --animate-float-card: floatCard 6s ease-in-out infinite alternate;
 }
 
-/* This is where the magic happens in Tailwind v4 */
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #F5F3EF;
+    color: #1C1917;
+    -webkit-font-smoothing: antialiased;
+  }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  /* Inter or System Sans is better for tech blogs than Arial */
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 }

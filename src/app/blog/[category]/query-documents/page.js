@@ -15,8 +15,17 @@ const sidebarItems = [
 
 const querySections = [
   {
+    id: "all",
+    title: "1. Fetch All Documents",
+    context: `// Setup: Prepare a collection with some data\ndb.products.insertMany([\n  { name: "MacBook Pro", category: "Laptops" },\n  { name: "iPhone 15", category: "Phones" }\n])`,
+    desc: "The simplest query is an empty find(). It retrieves every single document within a collection. In large datasets, this is usually combined with .limit() to avoid performance issues.",
+    shell: `db.products.find({}) \n// or simply\ndb.products.find()`,
+    js: `// Fetching all as an array\nawait db.collection("products").find({}).toArray();`,
+    python: `products.find({})`
+  },
+  {
     id: "basic",
-    title: "1. The Equality Match",
+    title: "2. The Equality Match",
     context: `// Setup: Multiple batches with same SKU\ndb.products.insertMany([\n  { sku: "LAP-1024", name: "Pro Book", stock: 50 },\n  { sku: "MOU-500", name: "Wireless Mouse", stock: 120 },\n  { sku: "LAP-1024", name: "Batch B", stock: 5 }\n])`,
     desc: "Match a field exactly. Note that MongoDB returns ALL documents that match the criteria, not just the first one.",
     shell: `db.products.find({ sku: "LAP-1024" })`,
@@ -25,7 +34,7 @@ const querySections = [
   },
   {
     id: "projection",
-    title: "2. Projections (Selecting Fields)",
+    title: "3. Projections (Selecting Fields)",
     context: `// Setup: Document with sensitive data\ndb.users.insertOne({\n  username: "sawera_y",\n  email: "sawera@example.com",\n  password: "hashed_secret_123",\n  role: "admin"\n})`,
     desc: "Projections allow you to include (1) or exclude (0) specific fields. Use this to hide passwords or reduce the size of the data sent to your frontend.",
     shell: `// Return only username and email, hide _id\ndb.users.find(\n  { username: "sawera_y" },\n  { username: 1, email: 1, _id: 0 }\n)`,
@@ -34,7 +43,7 @@ const querySections = [
   },
   {
     id: "arrays",
-    title: "3. Array Deep Dive ($all & $size)",
+    title: "4. Array Deep Dive ($all & $size)",
     context: `// Setup: Posts with varying tag counts\ndb.posts.insertMany([\n  { title: "React Guide", tags: ["React", "Nextjs"] },\n  { title: "JS Basics", tags: ["JavaScript"] },\n  { title: "FullStack", tags: ["React", "Node", "MongoDB"] }\n])`,
     desc: "Target array length with $size, or ensure a document contains multiple specific tags using $all.",
     shell: `// Find posts with exactly 3 tags\ndb.posts.find({ tags: { $size: 3 } })\n\n// Find posts containing both React and Nextjs\ndb.posts.find({ tags: { $all: ["React", "Nextjs"] } })`,
@@ -43,7 +52,7 @@ const querySections = [
   },
   {
     id: "sort",
-    title: "4. Sorting and Limiting",
+    title: "5. Sorting and Limiting",
     context: `// Setup: Leaderboard data\ndb.scores.insertMany([\n  { user: "Ali", points: 450 },\n  { user: "Sara", points: 900 },\n  { user: "Zain", points: 150 }\n])`,
     desc: "Use sort() for ordering (1 for ascending, -1 for descending) and limit() to restrict the number of results, perfect for pagination.",
     shell: `// Top 2 highest scores\ndb.scores.find().sort({ points: -1 }).limit(2)`,
@@ -52,16 +61,16 @@ const querySections = [
   },
   {
     id: "regex",
-    title: "5. Pattern Matching ($regex)",
+    title: "6. Pattern Matching ($regex)",
     context: `// Setup: Searchable user list\ndb.users.insertMany([\n  { name: "Sawera Younus", bio: "Fullstack Developer" },\n  { name: "Ali Ahmed", bio: "Frontend Enthusiast" },\n  { name: "Zainab", bio: "Backend Engineer" }\n])`,
     desc: "Use Regular Expressions to perform 'Search' functionality. The 'i' option makes the search case-insensitive, which is standard for search bars.",
     shell: `// Find any user with "sawera" in their name (case-insensitive)\ndb.users.find({ name: { $regex: /sawera/i } })`,
     js: `await db.collection("users").find({\n  name: { $regex: "sawera", $options: "i" }\n}).toArray();`,
     python: `users.find({ "name": { "$regex": "sawera", "$options": "i" } })`
   },
- {
+  {
     id: "exists-type",
-    title: "6. Element Filtering ($exists & $type)",
+    title: "7. Element Filtering ($exists & $type)",
     context: `// Setup: Mixed data types in a 'phone' field\ndb.profiles.insertMany([\n  { user: "Ali", phone: "0300-1234567" },       // Type: String (2)\n  { user: "Sara", phone: 923001234567 },      // Type: Number (1)\n  { user: "Zain", github: "zain-dev" }         // Field Missing\n])`,
     desc: "Use $exists to find documents with a specific field. Use $type to ensure data integrity—for example, finding only users whose phone number was saved as a String.",
     shell: `// Find users who have a 'phone' field AND it is a String\ndb.profiles.find({ \n  phone: { $exists: true, $type: "string" } \n})`,

@@ -169,7 +169,7 @@ export default function TutorialPage({ params }) {
             </section>
 
             {/* Next step Button Linked */}
-            <Link href={`/blog/${category}/insert-documents`} className="no-underline">
+            <Link href={`/blog/${category}/insert-docs`} className="no-underline">
               <div className="flex items-center justify-between p-6 rounded-[16px] bg-stone-900 text-[#F5F3EF] mt-7 cursor-pointer gap-4 shadow-xl hover:bg-stone-800 transition-all">
                 <div>
                   <div className="font-mono text-[9px] tracking-[0.15em] uppercase text-[#F5F3EF]/35 mb-1.5">Up Next — Lesson 03</div>

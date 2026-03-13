@@ -145,7 +145,8 @@ export default function IndexingPage({ params }) {
                   <p className="font-mono text-[10px] text-stone-500 uppercase tracking-[0.2em] mb-2">Relational Logic</p>
                   <h3 className="text-2xl font-bold">Lesson 08: Lookup & Joins</h3>
                </div>
-               <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white text-black transition-transform group-hover:translate-x-3 shadow-lg">→</div>
+            <div className="w-10 h-10 rounded-[11px] flex items-center justify-center text-[#001E2B] text-lg"
+                  style={{ background: theme.gradient }}>→</div>
             </div>
           </Link>
         </main>

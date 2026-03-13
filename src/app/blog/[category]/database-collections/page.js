@@ -6,11 +6,13 @@ import Navbar from "@/app/components/Navbar";
 
 const sidebarItems = [
   { id: 1, label: "Introduction",           slug: "introduction",             tag: "01", done: true },
-  { id: 2, label: "Database & Collections", slug: "database-and-collections",   tag: "02", active: true },
-  { id: 3, label: "Insert Documents",       slug: "insert-docs",         tag: "03" },
+  { id: 2, label: "Database & Collections", slug: "database-collections",     tag: "02", active: true },
+  { id: 3, label: "Insert Documents",       slug: "insert-docs",              tag: "03" },
   { id: 4, label: "Query Documents",        slug: "query-documents",          tag: "04" },
   { id: 5, label: "Update Docs",            slug: "update-docs",              tag: "05" },
   { id: 6, label: "Delete Docs",            slug: "delete-docs",              tag: "06" },
+  { id: 7, label: "Mastering Indexes",      slug: "indexing",                 tag: "07" },
+  { id: 8, label: "Lookup & Joins",         slug: "lookup",                   tag: "08" },
 ];
 
 const setupContent = {
